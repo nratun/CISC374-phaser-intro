@@ -121,7 +121,7 @@ export default class MainScene extends Phaser.Scene {
         });
     }
 
-    private handleHitBomb(player: Collidable, s: Collidable) {
+    private handleHitBomb() {
         this.physics.pause();
         this.player?.setTint(0xff0000);
         this.player?.anims.play("turn");
@@ -162,10 +162,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update() {
-        if (this.cursors?.left?.isDown) {
+        if (this.cursors?.left.isDown) {
             this.player?.setVelocityX(-160);
             this.player?.anims.play("left", true);
-        } else if (this.cursors?.right?.isDown) {
+        } else if (this.cursors?.right.isDown) {
             this.player?.setVelocityX(160);
             this.player?.anims.play("right", true);
         } else {
@@ -174,7 +174,7 @@ export default class MainScene extends Phaser.Scene {
         }
 
         if (this.cursors?.up.isDown && this.player?.body?.touching.down) {
-            this.player?.setVelocityY(-330);
+            this.player.setVelocityY(-330);
         }
     }
 }
