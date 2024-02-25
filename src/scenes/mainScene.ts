@@ -20,15 +20,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.image(400, 300, "sky");
-
-        const message = `Phaser v${Phaser.VERSION}`;
-        this.add
-            .text(this.cameras.main.width - 15, 15, message, {
-                color: "#000000",
-                fontSize: "24px",
-            })
-            .setOrigin(1, 0);
+        this.addBackground();
 
         this.platforms = this.physics.add.staticGroup();
         const ground = this.platforms.create(
@@ -46,31 +38,7 @@ export default class MainScene extends Phaser.Scene {
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
 
-        this.anims.create({
-            key: "left",
-            frames: this.anims.generateFrameNumbers("dude", {
-                start: 0,
-                end: 3,
-            }),
-            frameRate: 10,
-            repeat: -1,
-        });
-
-        this.anims.create({
-            key: "turn",
-            frames: [{ key: "dude", frame: 4 }],
-            frameRate: 20,
-        });
-
-        this.anims.create({
-            key: "right",
-            frames: this.anims.generateFrameNumbers("dude", {
-                start: 5,
-                end: 8,
-            }),
-            frameRate: 10,
-            repeat: -1,
-        });
+        this.addAnimations();
 
         this.physics.add.collider(this.player, this.platforms);
 
@@ -111,6 +79,46 @@ export default class MainScene extends Phaser.Scene {
             undefined,
             this
         );
+    }
+
+    private addBackground() {
+        this.add.image(400, 300, "sky");
+
+        const message = `Phaser v${Phaser.VERSION}`;
+        this.add
+            .text(this.cameras.main.width - 15, 15, message, {
+                color: "#000000",
+                fontSize: "24px",
+            })
+            .setOrigin(1, 0);
+    }
+
+    private addAnimations() {
+        this.anims.create({
+            key: "left",
+            frames: this.anims.generateFrameNumbers("dude", {
+                start: 0,
+                end: 3,
+            }),
+            frameRate: 10,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: "turn",
+            frames: [{ key: "dude", frame: 4 }],
+            frameRate: 20,
+        });
+
+        this.anims.create({
+            key: "right",
+            frames: this.anims.generateFrameNumbers("dude", {
+                start: 5,
+                end: 8,
+            }),
+            frameRate: 10,
+            repeat: -1,
+        });
     }
 
     private handleHitBomb(player: Collidable, s: Collidable) {
